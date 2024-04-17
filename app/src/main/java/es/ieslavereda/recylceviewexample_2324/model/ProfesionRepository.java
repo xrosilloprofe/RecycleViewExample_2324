@@ -46,4 +46,6 @@ public class ProfesionRepository {
 
     public Profesion get(int index){return profesiones.get(index);}
 
+    public List<Profesion> getAll(){return profesiones;}
+
 }

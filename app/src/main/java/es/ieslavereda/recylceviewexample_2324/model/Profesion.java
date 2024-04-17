@@ -1,6 +1,8 @@
 package es.ieslavereda.recylceviewexample_2324.model;
 
-public class Profesion {
+import java.io.Serializable;
+
+public class Profesion implements Serializable {
     private int image;
     private String nombre;
 
@@ -14,6 +16,11 @@ public class Profesion {
     }
 
     public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public String toString(){
         return nombre;
     }
 }
