@@ -4,7 +4,7 @@ public class Profesion {
     private int image;
     private String nombre;
 
-    public Profesion(int image, String nombre) {
+    public Profesion(String nombre,int image) {
         this.image = image;
         this.nombre = nombre;
     }

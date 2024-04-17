@@ -13,16 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import es.ieslavereda.recylceviewexample_2324.model.Usuario;
+import es.ieslavereda.recylceviewexample_2324.model.UsuarioRepository;
 
 public class AdaptadorRecycleView
         extends RecyclerView.Adapter<AdaptadorRecycleView.ViewHolder> {
 
     private LayoutInflater layoutInflater;
     private List<Usuario> usuarios;
-    public AdaptadorRecycleView(Context context, List<Usuario> usuarios){
+    public AdaptadorRecycleView(Context context){
         layoutInflater =
         (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.usuarios=usuarios;
+        this.usuarios= UsuarioRepository.getInstance().getAll();
     }
 
     // Creamos el ViewHolder con la vista de un elemento sin personalizar
