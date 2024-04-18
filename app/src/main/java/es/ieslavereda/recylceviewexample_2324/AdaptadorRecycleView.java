@@ -20,6 +20,8 @@ public class AdaptadorRecycleView
 
     private LayoutInflater layoutInflater;
     private List<Usuario> usuarios;
+    private View.OnClickListener onClickListener;
+
     public AdaptadorRecycleView(Context context){
         layoutInflater =
         (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -31,7 +33,12 @@ public class AdaptadorRecycleView
     @Override
     public AdaptadorRecycleView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.simple_element,parent,false);
+        view.setOnClickListener(onClickListener);
         return new ViewHolder(view);
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
     }
 
     @Override
