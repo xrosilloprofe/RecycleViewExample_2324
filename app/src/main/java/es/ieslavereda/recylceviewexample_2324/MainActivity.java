@@ -3,6 +3,7 @@ package es.ieslavereda.recylceviewexample_2324;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -63,6 +64,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addUser.setOnClickListener(view -> {
             Intent intent = new Intent(this, FormularioActivity.class);
             activityResultLauncher.launch(intent);
+        });
+
+        switchSort.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if(isChecked){
+                switchSort.setText("Profesión");
+                UsuarioRepository.getInstance().sort(Usuario.SORT_BY_JOB);
+            } else {
+                switchSort.setText("Nombre");
+                UsuarioRepository.getInstance().sort(Usuario.SORT_BY_NAME);
+            }
+            adaptador.notifyDataSetChanged();
         });
 
     }
