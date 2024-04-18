@@ -103,8 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Usuario usuario = UsuarioRepository.getInstance()
                 .get(recycler.getChildAdapterPosition(view));
-        Toast.makeText(this,"Has seleccionado el usuario " + usuario.getNombre()
-        ,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,"Has seleccionado el usuario " + usuario.getNombre()
+//        ,Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,DetailedActivity.class);
+        intent.putExtra("usuari",usuario);
+        startActivity(intent);
     }
 
     public void updateRecycle(){

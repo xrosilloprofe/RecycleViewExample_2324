@@ -66,9 +66,9 @@ public class AdaptadorRecycleView
         private TextView nombre, profesion;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagen = itemView.findViewById(R.id.imageView);
-            nombre = itemView.findViewById(R.id.textViewNombre);
-            profesion = itemView.findViewById(R.id.textViewOficio);
+            imagen = itemView.findViewById(R.id.imageView_detailed);
+            nombre = itemView.findViewById(R.id.textViewNombre_detailed);
+            profesion = itemView.findViewById(R.id.textViewOficio_detailed);
         }
     }
 }
