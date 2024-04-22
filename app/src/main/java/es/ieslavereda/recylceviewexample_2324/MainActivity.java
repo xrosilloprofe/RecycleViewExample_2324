@@ -12,15 +12,18 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +98,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isLinear=false;
             updateRecycle();
         });
+
+        ItemTouchHelper objetoDeslizar = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT,
+                        ItemTouchHelper.LEFT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        int posDestino = target.getAdapterPosition();
+                        int posicionInicial = viewHolder.getAdapterPosition();
+                        Usuario usuario = UsuarioRepository.getInstance().get(posicionInicial);
+
+                        UsuarioRepository.getInstance().remove(usuario);
+                        UsuarioRepository.getInstance().add(usuario,posDestino);
+
+                        adaptador.notifyItemMoved(posicionInicial,posDestino);
+
+                        return true;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int posicion = viewHolder.getAdapterPosition();
+                        Usuario usuario = UsuarioRepository.getInstance().get(posicion);
+                        UsuarioRepository.getInstance().remove(usuario);
+                        adaptador.notifyItemRemoved(posicion);
+                        Snackbar.make(recycler,"Borrado el usuario " + usuario.getNombre()
+                        + " " + usuario.getApellidos(),Snackbar.LENGTH_LONG)
+                                .setAction("Deshacer", view -> {
+                                    UsuarioRepository.getInstance().add(usuario,posicion);
+                                    adaptador.notifyItemInserted(posicion);
+                                }).show();
+                    }
+                }
+        );
+
+        objetoDeslizar.attachToRecyclerView(recycler);
 
 
     }
